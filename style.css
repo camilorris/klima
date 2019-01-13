@@ -1,0 +1,11 @@
+.container {
+  border: 1px solid rgb(19, 95, 114);
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  color: #df5757;
+  font-family: 'Dosis', sans-serif;
+}
