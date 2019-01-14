@@ -1,3 +1,7 @@
+body {
+  background-color: #292b30;
+}
+
 .container {
   border: 1px solid rgb(19, 95, 114);
   max-width: 360px;
@@ -8,4 +12,17 @@
 .title {
   color: #df5757;
   font-family: 'Dosis', sans-serif;
+}
+
+.weather-container {
+  color: #faf7f4;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.weather-type {
+  color: #df5757;
+}
+
+.weather-temp {
+  display: inline-block;
 }

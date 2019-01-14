@@ -7,37 +7,58 @@ if (navigator.geolocation) {
 }
 
 const api = "https://fcc-weather-api.glitch.me/api/current?";
+let currentCelsiusTemp = 0;
+let currentFarenheitTemp = 0;
+let isCelsiusDegrees = true;
 
 function fetchCurrentWeather(latitude, longitude) {
   fetch(api + "lat=" + latitude + "&lon=" + longitude)
-  .then(function(data) {
-    return data.json()
-  })
-  .then(function(klima) {
-    console.log(klima)
-    const weatherCountry = klima.sys.country
-    const mainWeather = klima.weather[0].main
-    const weatherHumidity = klima.main.humidity
-    const weatherMax = klima.main.temp_max
-    const weatherMin = klima.main.temp_min
-    const weatherTemp = klima.main.temp
+    .then(function(data) {
+      return data.json();
+    })
+    .then(function(klima) {
+      console.log(klima);
+      const weatherCountry = klima.sys.country;
+      const mainWeather = klima.weather[0].main;
+      const weatherHumidity = klima.main.humidity;
+      const weatherTemp = klima.main.temp;
 
-    const mainWeatherContainer = document.querySelector(".main-weather")
-    const weatherCountryContainer = document.querySelector(".weather-country")
-    const weatherHumidityContainer = document.querySelector(".weather-humidity")
-    const weatherMaxContainer = document.querySelector(".weather-max")
-    const weatherMinContainer = document.querySelector(".weather-min")
-    const weatherTempContainer = document.querySelector(".weather-temp")
+      const mainWeatherContainer = document.querySelector(".weather-main");
+      const weatherCountryContainer = document.querySelector(
+        ".weather-country"
+      );
+      const weatherHumidityContainer = document.querySelector(
+        ".weather-humidity"
+      );
+      const weatherTempContainer = document.querySelector(".weather-temp");
+      const weatherType = document.querySelector(".weather-type");
 
-    weatherHumidityContainer.innerText = "Humidity: " + weatherHumidity
-    weatherCountryContainer.innerText = weatherCountry
-    mainWeatherContainer.innerText = mainWeather
-    weatherMaxContainer.innerText = "Max Temp: " + weatherMax + " °C"
-    weatherMinContainer.innerText = "Min Temp: " + weatherMin + " °C"
-    weatherTempContainer.innerText = "Temp: " + weatherTemp + " °C"
-  })
+      weatherHumidityContainer.innerText = "Humidity: " + weatherHumidity + "%";
+      weatherCountryContainer.innerText = weatherCountry;
+      mainWeatherContainer.innerText = mainWeather;
+      weatherTempContainer.innerHTML = "Temp: " + weatherTemp;
+      weatherType.innerText = " °C";
+
+      currentCelsiusTemp = weatherTemp;
+
+      weatherType.addEventListener("click", toggleTempType);
+    });
 }
 
-// todo:
-// agregar estilos
+function toggleTempType() {
+  const weatherTempContainer = document.querySelector(".weather-temp");
+  const weatherType = document.querySelector(".weather-type");
 
+  if (isCelsiusDegrees) {
+      if(currentFarenheitTemp === 0){
+        currentFarenheitTemp =  currentCelsiusTemp * 9 / 5 + 32;
+      }
+    weatherTempContainer.innerText = "Temp: " + currentFarenheitTemp;
+    weatherType.innerText = " °F";
+  } else {
+    weatherTempContainer.innerText = "Temp: " + currentCelsiusTemp;
+    weatherType.innerText = " °C";
+  }
+
+  isCelsiusDegrees = !isCelsiusDegrees;
+}
