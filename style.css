@@ -23,6 +23,10 @@ body {
   color: #df5757;
 }
 
+.weather-type:hover {
+  cursor: pointer;
+}
+
 .weather-temp {
   display: inline-block;
 }

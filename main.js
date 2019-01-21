@@ -22,6 +22,12 @@ function fetchCurrentWeather(latitude, longitude) {
       const mainWeather = klima.weather[0].main;
       const weatherHumidity = klima.main.humidity;
       const weatherTemp = klima.main.temp;
+      const weatherIconUrl = klima.weather[0].icon;
+      
+      const weatherIconContainer = document.querySelector(".weather-icon")
+      const weatherIcon = document.createElement("img")
+      weatherIcon.src = weatherIconUrl
+      weatherIconContainer.appendChild(weatherIcon)
 
       const mainWeatherContainer = document.querySelector(".weather-main");
       const weatherCountryContainer = document.querySelector(
@@ -32,11 +38,13 @@ function fetchCurrentWeather(latitude, longitude) {
       );
       const weatherTempContainer = document.querySelector(".weather-temp");
       const weatherType = document.querySelector(".weather-type");
-
+        
+      weatherIconContainer.appendChild(weatherIcon)
+      weatherIconContainer.src = weatherIconUrl
       weatherHumidityContainer.innerText = "Humidity: " + weatherHumidity + "%";
       weatherCountryContainer.innerText = weatherCountry;
       mainWeatherContainer.innerText = mainWeather;
-      weatherTempContainer.innerHTML = "Temp: " + weatherTemp;
+      weatherTempContainer.innerText = "Temp: " + weatherTemp;
       weatherType.innerText = " °C";
 
       currentCelsiusTemp = weatherTemp;
